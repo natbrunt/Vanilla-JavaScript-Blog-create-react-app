@@ -1,0 +1,649 @@
+/*Universal start*/
+
+.buttonFormat {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: white solid 1px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+}
+
+.buttonFormatSmall {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border: white solid 1px;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}
+
+/*Universal end */
+
+
+body{
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Header start */
+
+.userBar{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  height:25px;
+  margin-right: 10px;
+}
+
+.userBar p{
+  color: white;
+  font-weight: bold;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  background-color: rgb(29, 29, 29);
+}
+
+.dashboard{
+  border: white solid 1px;
+  border-radius: 7px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding-right: 1px;
+  margin-right: 3px;
+}
+
+.dashboard:hover{
+  border: orange solid 1px;
+  background-color: orange;
+}
+
+.dashboardRightView{
+  display: flex;
+  align-items: center;
+}
+
+.buttonText{
+  font-weight: bold;
+  padding-left: 4px;
+  color: white;
+}
+
+.webTitleNavLink{
+  color: white;
+}
+
+.webTitle{
+  margin: 0px;
+  font-weight: bold;
+  font-style: italic;
+  padding-left: 10px;
+}
+
+/* Header end */
+
+/* Admin Logn start */
+
+.adminLoginWrapper{
+  background-color: rgb(39, 39, 39);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+}
+
+.adminLoginRow{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.adminLoginContainer{
+  border: rgb(156, 156, 156) solid 1px;
+  border-radius: 10px;
+  max-width: 500px;
+  color: orange;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminLoginContainer input{
+  width: 200px;
+}
+
+.adminLoginContainer button{
+  margin-top: 15px;
+  margin-bottom: 9px;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+/* Admin Login end */
+
+
+/* AdminDashboard start */
+.adminWrapper {
+  display: flex;
+
+  justify-content: center;
+}
+
+.adminContainer{
+  width: 80%;
+}
+
+.adminGrid{
+  display: grid;
+  grid-template-columns: 15% 85%;
+  gap: 30px;
+}
+
+.adminPostEditWrapper{
+  color: rgb(56, 56, 56);
+  margin-top: 1%;
+  margin-left: 0%;
+  margin-right: 0%;
+  border: rgb(173, 173, 173) solid .5px;
+  border-radius: 5px;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+}
+
+.adminAddBody {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+/* AdminDashboard end */
+
+/*Login start */
+
+.loginWrapper {
+  background-color: rgb(59, 59, 59);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer {
+  border: black solid 1px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+
+}
+
+/*Login end */
+
+
+/*Dashboard start */
+
+.userNavbar {
+  display: flex;
+
+  flex-direction: column;
+  gap: 0px;
+  background-color: rgb(48, 48, 48);
+
+}
+
+.userNavbar p {
+  margin-bottom: 0;
+  color: white;
+}
+
+.userNavbarButtons button{
+}
+
+.myPostsTitle{
+  background-color: rgb(29, 29, 29);
+  display: flex;
+  justify-content: center;
+}
+
+.myPostsTitle p {
+  color: white;
+}
+
+.create {
+  border: black solid 1px;
+  margin: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+}
+
+.createInputField{
+  display: flex;
+  gap: 5;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.createInputField p{
+  width: 100px;
+}
+
+.createInputField input {
+  width: 200px;
+}
+
+.userAddBody{
+  width: 90%;
+  height: 150px;
+  padding: 12px 12px;
+  box-sizing: border-box;
+  border: 1px solid #818181;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  margin-top: 10px;
+}
+
+
+.feedWrapperEdit{
+  background: lightgray;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.modalWrapper {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 55px;
+}
+
+.modal {
+  background-color: rgb(29, 29, 29);
+  color: white;
+  padding: 20px;
+  border: black solid 1px;
+  border-radius: 10px;
+}
+
+.postEditWrapper{
+  color: rgb(56, 56, 56);
+  margin-top: 1.5%;
+  margin-left: 14%;
+  margin-right: 14%;
+  border: rgb(173, 173, 173) solid .5px;
+  border-radius: 5px;
+  padding-left: 14px;
+  padding-right: 14px;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+}
+
+.postEditButtons{
+  background-color: red;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.accountDashboard{
+  display: flex;
+  justify-content: center;
+}
+
+.accountContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.accountContainer button{
+  width: 50%;
+  margin-top: 10%;
+  margin-left: 25%;
+}
+
+.userNavbarTitle{
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.dashButton{
+  margin-top: 0px;
+  margin-bottom: 10px;
+  margin-left: 14.13%;
+  padding-top: 3.5px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 120px;
+  border-radius: 5px;
+  border-width: 1px;
+  border:solid 1px rgb(173, 173, 173);
+
+  color: white;
+  transition: width .5s ease-in-out;
+  text-align: left;
+  display: flex;
+}
+
+.dashButtonOptions button{
+  color:rgb(219, 219, 219);
+  background-color: transparent;
+  font-size: 14px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 9px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: none;
+  opacity: 0%;
+  position: absolute;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.dashButton:hover{
+  width:350px;
+  text-align: left;
+   .dashButtonOptions button {
+    opacity: 100%;
+    position: absolute
+  }
+}
+
+.userButton{
+  margin-top: 0px;
+  margin-bottom: 10px;
+  margin-left: 14.13%;
+  padding-top: 3.5px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 40px;
+  border-radius: 5px;
+  border-width: 1px;
+  border:solid 1px rgb(173, 173, 173);
+
+  color: white;
+  transition: width .5s ease-in-out;
+  text-align: left;
+  display: flex;
+}
+
+.userButtonOptions button{
+  color:rgb(219, 219, 219);
+  background-color: transparent;
+  font-size: 14px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 9px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: none;
+  opacity: 0%;
+  position: absolute;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.userButton:hover{
+  width:173px;
+  text-align: left;
+   .userButtonOptions button {
+    opacity: 100%;
+    position: absolute
+  }
+}
+
+.noPosts{
+  font-size: 25px;
+  height: 100vh;
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  padding-bottom: 400px;
+}
+
+
+/*Dashboard end */
+
+
+/* Feed CSS start */
+
+.feedWrapper{
+  background: rgb(48, 48, 48);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+
+.post{
+  color: rgb(219, 219, 219);
+  margin-left: 14%;
+  margin-right: 14%;
+  border: rgb(173, 173, 173) solid .5px;
+  border-radius: 5px;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-bottom: 20px;
+}
+
+.postInfo{
+  font-weight: bold;
+  margin-top: 0px;
+  margin-bottom: 6px;
+}
+
+.postImage {
+  float: left;
+  max-height: 315px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  margin-right: 12px;
+}
+
+.bookIcon{
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 0px;
+}
+
+.filter{
+  margin-top: 0px;
+  padding-top: 0px;
+  margin-left: 14%;
+}
+
+.filterSort{
+  margin-top: 0px;
+  margin-bottom: 10px;
+  margin-left: 14.13%;
+  padding-top: 3.5px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 27px;
+  border-radius: 5px;
+  border-width: 1px;
+  border:solid 1px rgb(173, 173, 173);
+
+  color: white;
+  transition: width .5s ease-in-out;
+  text-align: left;
+  display: flex;
+}
+
+.filterOptions button{
+  color:rgb(219, 219, 219);
+  background-color: transparent;
+  font-size: 14px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 9px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: none;
+  opacity: 0%;
+  position: absolute;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.filterSort:hover{
+  width:220px;
+  text-align: left;
+   .filterOptions button {
+    opacity: 100%;
+    position: absolute
+  }
+}
+
+
+
+/* Feed CSS end */
+
+/* Reactivate view start */
+
+.reactivateFormWrapper{
+  background-color: rgb(48, 48, 48);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.reactivateFormWrapper p {
+  width: 70%;
+  text-align: center;
+}
+
+.reactivateFormContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
+.reactivateForm{
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  gap: 5px;
+}
+/* Reactivate view end */
+
+
+/*height should be device resolution height*/
+.homeWrapper{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(0deg, rgba(222,187,144,1) 0%, rgba(255,234,204,1) 62%, rgba(255,255,255,1) 100%);
+}
+
+.homeTitle{
+  font-weight: bold;
+  font-size: 43px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.homeDescription{
+  font-weight: bold;
+}
+
+.homeButton{
+  font-size: 14px;
+  width: 80px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 7px;
+  border-width: 2px;
+  transition: background-color 0.3s;
+}
+
+.homeButton:hover {
+  background-color: white;
+}
+
+.footer {
+  /* position: fixed; */
+  position: fixed;
+  /* position: absolute;  */
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: rgb(12, 12, 12);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  z-index: 1;
+}
+
+.hiddenFooter {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  height: 22px;
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+}
+
+.footerButtonWrapper{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+}
+

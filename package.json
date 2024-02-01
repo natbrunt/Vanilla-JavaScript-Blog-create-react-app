@@ -1,0 +1,17 @@
+{
+    "name": "book-worm-forum-v2-deployment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./server/app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "cd ./server && node app.js",
+      "build": "cd ./server && npm i"
+    },
+    "engines": {
+      "node": "20.x"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
