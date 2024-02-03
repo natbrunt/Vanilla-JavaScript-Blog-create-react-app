@@ -54,16 +54,16 @@ let Feed = (props) => {
     <>
     <div className="feedWrapper">
 
-    <div className="bookIcon"><IoBookOutline color={"white"} size={25}/></div>
+        <div className="bookIcon"><IoBookOutline color={"white"} size={25}/></div>
 
-    <div className="filterSort">Sort
-        <div className="filterOptions">
-            <button onClick={handleSortAscending}>ascending</button>
-            <button onClick={handleSortDescending} style={{marginLeft: 85}}>descending</button>
+        <div className="filterSort">Sort
+            <div className="filterOptions">
+                <button onClick={handleSortAscending}>ascending</button>
+                <button onClick={handleSortDescending} style={{marginLeft: 85}}>descending</button>
+            </div>
         </div>
-    </div>
 
-    {renderPosts()}
+        {renderPosts()}
 
     </div>
     </>

@@ -91,7 +91,11 @@ let Dashboard = (props) => {
     }, [])
 
     useEffect(()=>{
-        setValues({oldPassword: '', newPassword: ''})
+        setValues({oldPassword: '', newPassword: ''});
+        setThisImageURL('');
+        setThisBody('');
+        setAuthorInput('');
+        setTitleInput('');
     }, [currentView])
 
     const handleSubmit = (method) => {
@@ -233,63 +237,63 @@ let Dashboard = (props) => {
                 <p>Create</p>
             </div>
             <div className="create">
-                <div style={{ 
-                    display: 'flex',
-                    width: "100%", 
-                    justifyContent:"center"}}>
-                    <p>Add a post</p>
-                </div>
+                <div className="createContainer">
+                    <div style={{ 
+                        display: 'flex',
+                        width: "100%", 
+                        justifyContent:"center"}}>
+                        <p>Add a post</p>
+                    </div>
 
 
-                <div className="createInputField" >
-                    <p>Book Title</p>
-                    <input 
-                    style={{height: 22}}
-                    value={titleInput}
-                    onChange={e=> setTitleInput(e.target.value)}
-                    ></input>
-                </div>
+                    <div className="createInputField" >
+                        <p>Book Title</p>
+                        <input 
+                        style={{height: 22}}
+                        value={titleInput}
+                        onChange={e=> setTitleInput(e.target.value)}
+                        ></input>
+                    </div>
 
-                <div className="createInputField" >
-                    <p>Book Author</p>
-                    <input
-                    style={{height: 22}} 
-                    value={authorInput}
-                    onChange={e=> setAuthorInput(e.target.value)}
-                    ></input>
-                </div>
+                    <div className="createInputField" >
+                        <p>Book Author</p>
+                        <input
+                        style={{height: 22}} 
+                        value={authorInput}
+                        onChange={e=> setAuthorInput(e.target.value)}
+                        ></input>
+                    </div>
 
-                
-                <div className="createInputField">
-                    <p>Image </p>
-                    <input 
-                    style={{height: 22}}
-                    value={thisImageURL}
-                    onChange={e => setThisImageURL(e.target.value)}
-                    ></input>
-                </div>
-                
-                <div style={{
-                    display: 'flex', 
-                    gap: 5,
-                    justifyContent: "space-evenly" }}>
-                    <p style={{marginTop: 10}}>Body </p>
-                    <textarea 
-                    className="userAddBody"
-                    value={thisBody}
-                    onChange={e=> setThisBody(e.target.value)}
-                    ></textarea>
-                </div>
-                <div style={{ 
-                    display: 'flex',
-                    width: "100%", 
-                    justifyContent:"center"}}>
-                    <button
-                        className="buttonFormat"
-                        style={{margin: 10}} 
-                        onClick={() => handleSubmit('add')}
-                        >Submit
-                    </button>
+                    
+                    <div className="createInputField">
+                        <p>Image </p>
+                        <input 
+                        style={{height: 22}}
+                        value={thisImageURL}
+                        onChange={e => setThisImageURL(e.target.value)}
+                        ></input>
+                    </div>
+                    
+                    <div className="userAddBodyTitle">
+                        <p>Body</p>
+                        <textarea 
+                        className="userAddBody"
+                        value={thisBody}
+                        onChange={e=> setThisBody(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div style={{ 
+                        display: 'flex',
+                        width: "100%", 
+                        justifyContent:"right"}}>
+                        <button
+                            className="buttonFormat"
+                            style={{margin: 10,
+                            marginRight: 0}} 
+                            onClick={() => handleSubmit('add')}
+                            >Submit
+                        </button>
+                    </div>
                 </div>
             </div>
             </>
@@ -353,66 +357,64 @@ let Dashboard = (props) => {
                 <p>Update post</p>
             </div>
             <div className="create">
+                <div className="createContainer">
+                    {deleteMode && renderDeleteWindow()}
 
-                {deleteMode && renderDeleteWindow()}
-
-                <div style={{ 
-                    display: 'flex',
-                    width: "100%", 
-                    justifyContent:"center"}}>
-                    <p>Update post</p>
-                </div>
+                    <div style={{ 
+                        display: 'flex',
+                        width: "100%", 
+                        justifyContent:"center"}}>
+                        <p>Update post</p>
+                    </div>
 
 
-                <div className="createInputField" >
-                    <p>Book Title</p>
-                    <input 
-                    style={{height: 22}}
-                    value={titleInput}
-                    onChange={e=> setTitleInput(e.target.value)}
-                    ></input>
-                </div>
+                    <div className="createInputField" >
+                        <p>Book Title</p>
+                        <input 
+                        style={{height: 22}}
+                        value={titleInput}
+                        onChange={e=> setTitleInput(e.target.value)}
+                        ></input>
+                    </div>
 
-                <div className="createInputField" >
-                    <p>Book Author</p>
-                    <input
-                    style={{height: 22}} 
-                    value={authorInput}
-                    onChange={e=> setAuthorInput(e.target.value)}
-                    ></input>
-                </div>
+                    <div className="createInputField" >
+                        <p>Book Author</p>
+                        <input
+                        style={{height: 22}} 
+                        value={authorInput}
+                        onChange={e=> setAuthorInput(e.target.value)}
+                        ></input>
+                    </div>
 
-                
-                <div className="createInputField">
-                    <p>Image </p>
-                    <input 
-                    style={{height: 22}}
-                    value={thisImageURL}
-                    onChange={e => setThisImageURL(e.target.value)}
-                    ></input>
-                </div>
-                
-                <div style={{
-                    display: 'flex', 
-                    gap: 5,
-                    justifyContent: "space-evenly" }}>
-                    <p style={{marginTop: 10}}>Body </p>
-                    <textarea 
-                    className="userAddBody"
-                    value={thisBody}
-                    onChange={e=> setThisBody(e.target.value)}
-                    ></textarea>
-                </div>
-                <div style={{ 
-                    display: 'flex',
-                    width: "100%", 
-                    justifyContent:"center"}}>
-                    <button
-                        className="buttonFormat"
-                        style={{margin: 10}} 
-                        onClick={() => handleSubmit('update')}
-                        >Submit
-                    </button>
+                    
+                    <div className="createInputField">
+                        <p>Image </p>
+                        <input 
+                        style={{height: 22}}
+                        value={thisImageURL}
+                        onChange={e => setThisImageURL(e.target.value)}
+                        ></input>
+                    </div>
+                    
+                    <div className="userAddBodyTitle">
+                        <p>Body</p>
+                        <textarea 
+                        className="userAddBody"
+                        value={thisBody}
+                        onChange={e=> setThisBody(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div style={{ 
+                        display: 'flex',
+                        width: "100%", 
+                        justifyContent:"right"}}>
+                        <button
+                            className="buttonFormat"
+                            style={{margin: 10, marginRight: 0}} 
+                            onClick={() => handleSubmit('update')}
+                            >Submit
+                        </button>
+                    </div>
                 </div>
             </div>
             </>
