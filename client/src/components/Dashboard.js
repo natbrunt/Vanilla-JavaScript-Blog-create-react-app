@@ -357,8 +357,8 @@ let Dashboard = (props) => {
                 <p>Update post</p>
             </div>
             <div className="create">
+                {deleteMode && renderDeleteWindow()}
                 <div className="createContainer">
-                    {deleteMode && renderDeleteWindow()}
 
                     <div style={{ 
                         display: 'flex',
