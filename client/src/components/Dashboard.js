@@ -111,6 +111,9 @@ let Dashboard = (props) => {
                 body: thisBody
             })
             .then((res) => {
+              if(thisImageURL !== ''){
+                uploadTheImage();
+              }
               alert(`${res.data.message}`)
               props.setList(res.data.list)
               setCurrentView('posts')
@@ -132,6 +135,9 @@ let Dashboard = (props) => {
                 body: thisBody
             })
             .then((res) => {
+              if(thisImageURL !== ''){
+                uploadTheImage();
+              }
               alert(`${res.data.message}`)
               props.setList(res.data.list);
               setCurrentView('posts');
@@ -227,6 +233,88 @@ let Dashboard = (props) => {
         )
     }
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleImageUpload = (e) => {
+        const files = e.target.files;
+        if (maxSelectFile(e) && checkMimeType(e) && checkFileSize(e)){
+            console.log("File meets all requirements")
+            setSelectedFile([...files])
+            setThisImageURL(URL + "/assets/"+ files[0].name)
+        }
+    }
+
+    const maxSelectFile = (event) => {
+        if (event.target.files.length > 1) {
+          event.target.value = null;
+          console.log("Only 1 image can be uploaded at a time");
+          return false;
+        }
+        return true
+    }
+      
+    //checking that the file is an image
+    const checkMimeType = (e) => {
+    const files = e.target.files;
+    const types = ["image/png", "image/jpeg", "image/gif"];
+    let err = [];
+    for (var x = 0; x < files.length; x++){
+        if (types.every((type) => files[x].type !== type)){
+        err[x] = files[x].type + " is not a supported format\n";
+        }
+    }
+    err.forEach((err)=> {
+        e.target.value = null;
+        console.log(err);
+        return false;
+    })
+    return true;
+    }
+      
+    // checking the filesize
+    const checkFileSize = (e) => {
+        const files = e.target.files;
+        const size = 5000000;
+        // 5 mbs
+        
+        // to check the dimensions on the image  
+        let image = new Image()
+        image.src=window.URL.createObjectURL(e.target.files[0])
+        image.onload = function() {
+            // image.naturalWidth, image.naturalHeight will give the dimension in pixels
+            console.log(image.naturalWidth, image.naturalHeight)
+            window.URL.revokeObjectURL( image.src );
+        };
+        
+        for (let i = 0; i < files.length; i++) {
+            console.log("file size = " + files[i].size)
+            if (files[i].size > size) {
+            console.log(files[i].type + "is too large, please pick a smaller file");
+            e.target.value = null;
+            return false;
+            }
+        }
+        return true;
+    };
+
+      // sending file to the server onClick
+    const uploadTheImage = async () => {
+        const data = new FormData();
+        for (var x = 0; x < selectedFile.length; x++)
+        {
+            data.append("file", selectedFile[x]);
+        }
+        try {
+        const res = await axios.post(`${URL}/upload/submit`, data);
+        if (res.data.ok) {
+            console.log("Image Upload success");
+            setSelectedFile(null);
+        }
+        } catch (err) {
+        console.error(err);
+        }
+    };
+
 
     const renderView = () => {
         console.log("view rendered")
@@ -267,10 +355,10 @@ let Dashboard = (props) => {
                     
                     <div className="createInputField">
                         <p>Image </p>
-                        <input 
+                        <input
+                        type="file" 
                         style={{height: 22}}
-                        value={thisImageURL}
-                        onChange={e => setThisImageURL(e.target.value)}
+                        onChange={handleImageUpload}
                         ></input>
                     </div>
                     
@@ -389,10 +477,10 @@ let Dashboard = (props) => {
                     
                     <div className="createInputField">
                         <p>Image </p>
-                        <input 
+                        <input
+                        type="file" 
                         style={{height: 22}}
-                        value={thisImageURL}
-                        onChange={e => setThisImageURL(e.target.value)}
+                        onChange={handleImageUpload}
                         ></input>
                     </div>
                     

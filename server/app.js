@@ -27,6 +27,8 @@ connecting()
 
 //routes
 app.use('/assets', express.static(path.join(__dirname, 'static')))
+// serving static files from public folder under the rout /assets
+app.use('/assets', require('express').static(__dirname + '/files'));
 
 /*Cyclic start*/
 app.use(express.static(__dirname));
@@ -38,6 +40,7 @@ app.get('/*', function (req, res) {
 /*Cyclic end*/
 app.use('/posts', require('./routes/posts.routes.js'));
 app.use('/admin', require('./routes/admin.routes.js'));
-app.use('/users', require('./routes/users.routes.js'))
+app.use('/users', require('./routes/users.routes.js'));
+app.use('/upload', require('./routes/upload.routes.js'))
 
 app.listen(PORT, () => console.log(`listening`))
