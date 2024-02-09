@@ -353,7 +353,8 @@ let Dashboard = (props) => {
                     </div>
 
                     
-                    <div className="createInputField">
+                    <div className="createInputField"
+                    style={{display: 'none'}}>
                         <p>Image </p>
                         <input
                         type="file" 
@@ -475,7 +476,8 @@ let Dashboard = (props) => {
                     </div>
 
                     
-                    <div className="createInputField">
+                    <div className="createInputField"
+                    style={{display:'none'}}>
                         <p>Image </p>
                         <input
                         type="file" 
