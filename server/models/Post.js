@@ -2,7 +2,16 @@ const mongoose = require("mongoose");
 const { v4: uuidv4 } = require('uuid');
 
 const postSchema = new mongoose.Schema({
-    image: {type: Array, required: false},
+    imageSecureUrl:{ 
+      type:String, 
+      unique:false, 
+      required:false 
+    },
+    imagePublicId:{ 
+      type:String,
+      unique:false, 
+      required:false 
+    },
     username: {type: String, required: true},
     body: {type: String, required: true},
     date: {type: String, required: true},

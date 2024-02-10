@@ -1,28 +1,15 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-
-/*
-create
-    book title
-    book author
-    upload an image (cloudinary)
-    body
-
-    submit -> axios.post to -> posts/addPost
-
-myPosts
-    render all posts under your username
-    edit button -> posts/updatePost
-    remove button -> are you sure? -> posts/removePost
-
-*/
+import widgetStyle from "./widgetStyle";
+import { FaSquareXmark } from "react-icons/fa6";
 
 let Dashboard = (props) => {
 
     const URL = process.env.REACT_APP_SERVER_URL;
     const [currentView, setCurrentView] = useState('posts');
-    const [thisImageURL, setThisImageURL] = useState('');
+    const [image_secure_url, set_image_secure_url] = useState('');
+    const [image_public_id, set_image_public_id] = useState('');
     const [thisBody, setThisBody] = useState('');
     const [titleInput, setTitleInput] = useState('');
     const [authorInput, setAuthorInput] = useState('');
@@ -92,7 +79,8 @@ let Dashboard = (props) => {
 
     useEffect(()=>{
         setValues({oldPassword: '', newPassword: ''});
-        setThisImageURL('');
+        set_image_secure_url('');
+        set_image_public_id('');
         setThisBody('');
         setAuthorInput('');
         setTitleInput('');
@@ -107,13 +95,11 @@ let Dashboard = (props) => {
                 username: props.user,
                 bookTitle: titleInput,
                 bookAuthor: authorInput,
-                image: thisImageURL,
+                imageSecureUrl: image_secure_url,
+                imagePublicId: image_public_id,
                 body: thisBody
             })
             .then((res) => {
-              if(thisImageURL !== ''){
-                uploadTheImage();
-              }
               alert(`${res.data.message}`)
               props.setList(res.data.list)
               setCurrentView('posts')
@@ -131,13 +117,11 @@ let Dashboard = (props) => {
                 username: props.user,
                 bookTitle: titleInput,
                 bookAuthor: authorInput,
-                image: thisImageURL,
+                imageSecureUrl: image_secure_url,
+                imagePublicId: image_public_id,
                 body: thisBody
             })
             .then((res) => {
-              if(thisImageURL !== ''){
-                uploadTheImage();
-              }
               alert(`${res.data.message}`)
               props.setList(res.data.list);
               setCurrentView('posts');
@@ -147,7 +131,8 @@ let Dashboard = (props) => {
             })
         }
         
-        setThisImageURL('');
+        set_image_secure_url('');
+        set_image_public_id('');
         setThisBody('');
         setAuthorInput('');
         setTitleInput('');
@@ -164,7 +149,8 @@ let Dashboard = (props) => {
                 //organize state variables in views
             })
             .then((res) => {
-            setThisImageURL(res.data.post.image);
+            set_image_public_id(res.data.post.imagePublicId);
+            set_image_secure_url(res.data.post.imageSecureUrl);
             setThisBody(res.data.post.body);
             setAuthorInput(res.data.post.bookAuthor);
             setTitleInput(res.data.post.bookTitle);
@@ -205,7 +191,8 @@ let Dashboard = (props) => {
             
             setCurrentPostId('');
             setCurrentView('posts');
-            setThisImageURL('');
+            set_image_public_id('');
+            set_image_secure_url('');
             setThisBody('');
             setAuthorInput('');
             setTitleInput('');
@@ -233,88 +220,47 @@ let Dashboard = (props) => {
         )
     }
 
-    const [selectedFile, setSelectedFile] = useState(null);
-
-    const handleImageUpload = (e) => {
-        const files = e.target.files;
-        if (maxSelectFile(e) && checkMimeType(e) && checkFileSize(e)){
-            console.log("File meets all requirements")
-            setSelectedFile([...files])
-            setThisImageURL(URL + "/assets/"+ files[0].name)
-        }
-    }
-
-    const maxSelectFile = (event) => {
-        if (event.target.files.length > 1) {
-          event.target.value = null;
-          console.log("Only 1 image can be uploaded at a time");
-          return false;
-        }
-        return true
-    }
-      
-    //checking that the file is an image
-    const checkMimeType = (e) => {
-    const files = e.target.files;
-    const types = ["image/png", "image/jpeg", "image/gif"];
-    let err = [];
-    for (var x = 0; x < files.length; x++){
-        if (types.every((type) => files[x].type !== type)){
-        err[x] = files[x].type + " is not a supported format\n";
-        }
-    }
-    err.forEach((err)=> {
-        e.target.value = null;
-        console.log(err);
-        return false;
-    })
-    return true;
-    }
-      
-    // checking the filesize
-    const checkFileSize = (e) => {
-        const files = e.target.files;
-        const size = 5000000;
-        // 5 mbs
-        
-        // to check the dimensions on the image  
-        let image = new Image()
-        image.src=window.URL.createObjectURL(e.target.files[0])
-        image.onload = function() {
-            // image.naturalWidth, image.naturalHeight will give the dimension in pixels
-            console.log(image.naturalWidth, image.naturalHeight)
-            window.URL.revokeObjectURL( image.src );
-        };
-        
-        for (let i = 0; i < files.length; i++) {
-            console.log("file size = " + files[i].size)
-            if (files[i].size > size) {
-            console.log(files[i].type + "is too large, please pick a smaller file");
-            e.target.value = null;
-            return false;
+    const uploadWidget = () => {
+        window.cloudinary.openUploadWidget(
+            {
+              cloud_name: process.env.REACT_APP_CLOUD_NAME,
+              upload_preset: process.env.REACT_APP_UPLOAD_PRESET,
+              max_files: '1',
+              tags: ["user"],
+              stylesheet: widgetStyle,
+            },
+            (error, result) => {
+              if (error) {
+                console.log(error);
+              } else {
+                result.event === "queues-end" && parseSecureURL(result);
+              }
             }
-        }
-        return true;
+          );
+    }
+
+    const parseSecureURL = async (result) => {
+        const secure_url = result.info.files[0].uploadInfo.secure_url;
+        const public_id = result.info.files[0].uploadInfo.public_id;
+        set_image_secure_url(secure_url);
+        set_image_public_id(public_id);
     };
 
-      // sending file to the server onClick
-    const uploadTheImage = async () => {
-        const data = new FormData();
-        for (var x = 0; x < selectedFile.length; x++)
-        {
-            data.append("file", selectedFile[x]);
-        }
+    const deleteImage = async (_id) => {
         try {
-        const res = await axios.post(`${URL}/upload/submit`, data);
-        if (res.data.ok) {
-            console.log("Image Upload success");
-            setSelectedFile(null);
+            const response = await axios.delete(URL + `/pictures/remove/${_id}`);
+            if(response.data.ok){
+                console.log(response.data.message);
+                set_image_public_id('');
+                set_image_secure_url('');
+            }
+            else{
+                console.log(response.data.message);
+            }
+        } catch (error) {
+            console.log(error)
         }
-        } catch (err) {
-        console.error(err);
-        }
-    };
-
+    }
 
     const renderView = () => {
         console.log("view rendered")
@@ -353,14 +299,19 @@ let Dashboard = (props) => {
                     </div>
 
                     
-                    <div className="createInputField"
-                    style={{display: 'none'}}>
+                    <div className="createInputField">
                         <p>Image </p>
-                        <input
-                        type="file" 
-                        style={{height: 22}}
-                        onChange={handleImageUpload}
-                        ></input>
+                        {(image_secure_url !== '') ? 
+                        <div className="uploadImageDisplay">
+                            <img className="editImage" src={image_secure_url} />
+                            <div onClick={() => deleteImage(image_public_id)}><div className="iconStyle"><FaSquareXmark size={34} color={'#FF4949'}/></div></div>
+                        </div>
+                        : <button 
+                            className="buttonFormat"
+                            onClick={uploadWidget}
+                            style={{paddingLeft: 8, paddingRight: 9}}>
+                            Upload
+                        </button>}
                     </div>
                     
                     <div className="userAddBodyTitle">
@@ -476,14 +427,19 @@ let Dashboard = (props) => {
                     </div>
 
                     
-                    <div className="createInputField"
-                    style={{display:'none'}}>
+                    <div className="createInputField">
                         <p>Image </p>
-                        <input
-                        type="file" 
-                        style={{height: 22}}
-                        onChange={handleImageUpload}
-                        ></input>
+                        {(image_secure_url !== '') ? 
+                        <div className="uploadImageDisplay">
+                            <img className="editImage" src={image_secure_url} />
+                            <div onClick={() => deleteImage(image_public_id)}><div className="iconStyle"><FaSquareXmark size={34} color={'#FF4949'}/></div></div>
+                        </div>
+                        : <button 
+                            className="buttonFormat"
+                            onClick={uploadWidget}
+                            style={{paddingLeft: 8, paddingRight: 9}}>
+                            Upload
+                        </button>}
                     </div>
                     
                     <div className="userAddBodyTitle">
@@ -532,8 +488,9 @@ let Dashboard = (props) => {
                                 </div>
                             </div>
                             <p style={{margin: 0, fontSize: 14, fontStyle: "italic", paddingBottom: 10}}>{data.date}</p>
-                            {data.image[0]? <p style={{marginTop: 0}}>
-                                <img className="postImage" src={data.image[0]} />
+                            {(data.imageSecureUrl !== "")? 
+                            <p style={{marginTop: 0}}>
+                                <img className="postImage" src={data.imageSecureUrl} />
                                 <p className="postInfo">{data.bookTitle}, {data.bookAuthor}</p>
                                 {data.body}
                             </p> : 

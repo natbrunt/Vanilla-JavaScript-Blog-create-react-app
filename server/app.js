@@ -41,6 +41,6 @@ app.get('/*', function (req, res) {
 app.use('/posts', require('./routes/posts.routes.js'));
 app.use('/admin', require('./routes/admin.routes.js'));
 app.use('/users', require('./routes/users.routes.js'));
-app.use('/upload', require('./routes/upload.routes.js'))
+app.use('/pictures', require('./routes/pictures.routes.js'))
 
 app.listen(PORT, () => console.log(`listening`))

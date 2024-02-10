@@ -459,6 +459,29 @@ body{
   padding-bottom: 400px;
 }
 
+.uploadImageDisplay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 5px;
+  gap: 10px
+}
+
+.editImage {
+  max-height: 315px;
+  border-radius: 10px;
+}
+
+.iconStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: white solid 2px;
+  border-radius: 6px;
+  width: 27px;
+  height: 26px;
+}
 
 /*Dashboard end */
 

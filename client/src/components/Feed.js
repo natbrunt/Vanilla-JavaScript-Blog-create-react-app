@@ -19,8 +19,8 @@ let Feed = (props) => {
                 <div className="post" key={idx}>
                 <p style={{margin: 0, paddingTop: 9, fontWeight: 'bold'}}>{data.username}</p>
                 <p style={{margin: 0, fontSize: 14, fontStyle: "italic", paddingBottom: 10}}>{data.date}</p>
-                {data.image[0]? <p style={{marginTop: 0}}>
-                    <img className="postImage" src={data.image[0]} />
+                {(data.imageSecureUrl !== "")? <p style={{marginTop: 0}}>
+                    <img className="postImage" src={data.imageSecureUrl} />
                     <p className="postInfo">{data.bookTitle}, {data.bookAuthor}</p>
                     {data.body}
                 </p> : 

@@ -1,5 +1,13 @@
 const posts = require('../models/Post.js');
 const { v4: uuidv4 } = require('uuid');
+const cloudinary = require("cloudinary");
+
+cloudinary.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET,
+  });
+
 
 class Post {
 
@@ -17,11 +25,13 @@ class Post {
 			username: name,
 			bookTitle: title,
 			bookAuthor: author,
-			image: imageUrl,
+			imageSecureUrl: secure_url,
+			imagePublicId: public_id,
 			body: bodyText
 		} = req.body;
 		try{
-
+			console.log('secure_url=')
+			console.log(secure_url);
 			const dateData = new Date()
 			const day = dateData.getDate()
 			const monthData = dateData.getMonth()
@@ -74,7 +84,8 @@ class Post {
 	       		username: name,
 				date: newDate,
 				timeStamp: dateData,
-				image: imageUrl,
+				imageSecureUrl: secure_url,
+				imagePublicId: public_id,
 				body: bodyText,
 				bookTitle: title,
 				bookAuthor: author,
@@ -85,7 +96,7 @@ class Post {
 
 	    }
 	    catch(error){
-	        res.send({error});
+	        console.log(error);
 	    };
 	}
 
@@ -95,18 +106,19 @@ class Post {
 			body: bodyText,
 			bookTitle: title,
 			bookAuthor: author,
-			image: imageUrl,
+			imageSecureUrl: secure_url,
+			imagePublicId: public_id,
 			} = req.body
 		try {
-			const updatedOne = await posts.updateOne(
+			await posts.updateOne(
 				{id:thisId}, 
 				{
 					body: bodyText,
 					bookTitle: title,
 					bookAuthor: author,
-					image: imageUrl,
+					imageSecureUrl: secure_url,
+					imagePublicId: public_id,
 				}, 
-				{returnDocument:'after'}
 			);
 			const newList = await posts.find({});
 			res.send({ok: true, message: "Post updated", 
@@ -122,11 +134,19 @@ class Post {
 		} = req.body;
 
 		try {
-			await posts.deleteOne(
+			const deletedPost = await posts.findOneAndDelete(
 				{id: thisId}
 			)
 			const newList = await posts.find({});
-			res.send({ok: true, message: "Post deleted", list: newList})
+			try {
+				console.log('deletedPostPublidId=')
+				console.log(deletedPost.imagePublicId)
+				await cloudinary.v2.api.delete_resources([deletedPost.imagePublicId]);
+				res.send({ok: true, message: "Post deleted", list: newList})
+			  } catch (error) {
+				console.log(error)
+				res.send({ ok: false, message: "Could not delete image from Cloudinary", list:newList})
+			  }
 		} catch (error) {
 			console.log(error)
 		}
