@@ -1,4 +1,7 @@
 Welcome to the Book-worm-forum!
 This here is a template website and is great practice for dealing with text-inputs, users, admin users, and form submission.
 
-    Website is currently being hosted on Cyclic @ https://nice-blue-salmon-sock.cyclic.app
+Dev-to-do
+Recently found out how useful a template website like this is.
+Even though i prefer to code in the TypeScript stack,
+JavaScript, Mongoose, create-react-app, and axios are industry standards that cannot be ignored
